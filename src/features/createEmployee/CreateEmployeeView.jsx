@@ -5,6 +5,7 @@ import { createEmployee, hideConfirmationModal } from './employeesSlice'
 import { states } from '../../constants'
 
 import Form from 'react-bootstrap/Form'
+import InputField from '../../components/InputField'
 import CustomDatePicker from '../../components/CustomDatePicker'
 import Dropdown from '../../components/Dropdown'
 import Button from 'react-bootstrap/Button'
@@ -104,35 +105,19 @@ const CreateEmployeeView = () => {
         onSubmit={handleSubmit}
       >
         {/* First Name */}
-        <Form.Group>
-          <Form.Label htmlFor="first-name">First Name</Form.Label>
-          <Form.Control
-            required
-            type="text"
-            id="firstName"
-            value={newEmployee.firstName}
-            onChange={handleInputChange}
-          />
-          <Form.Control.Feedback type="invalid">
-            Please choose a first name.
-          </Form.Control.Feedback>
-        </Form.Group>
-
+        <InputField
+          label="First Name"
+          id="firstName"
+          value={newEmployee.firstName}
+          onChange={handleInputChange}
+        />
         {/* Last Name */}
-        <Form.Group>
-          <Form.Label htmlFor="last-name">Last Name</Form.Label>
-          <Form.Control
-            required
-            type="text"
-            id="lastName"
-            value={newEmployee.lastName}
-            onChange={handleInputChange}
-          />
-          <Form.Control.Feedback type="invalid">
-            Please choose a last name.
-          </Form.Control.Feedback>
-        </Form.Group>
-
+        <InputField
+          label="Last Name"
+          id="lastName"
+          value={newEmployee.lastName}
+          onChange={handleInputChange}
+        />
         {/* Date of Birth */}
         <CustomDatePicker
           label="Date of Birth"
@@ -140,7 +125,6 @@ const CreateEmployeeView = () => {
           value={newEmployee.dateOfBirth}
           handler={(date) => handleDatePickerChange('dateOfBirth', date)}
         />
-
         {/* Start Date */}
         <CustomDatePicker
           label="Start Date"
@@ -148,41 +132,23 @@ const CreateEmployeeView = () => {
           value={newEmployee.startDate}
           handler={(date) => handleDatePickerChange('startDate', date)}
         />
-
         {/* FIELDSET ADRESS */}
         <Fieldset className="address">
           <legend>Address</legend>
-
           {/* Street */}
-          <Form.Group>
-            <Form.Label>Street</Form.Label>
-            <Form.Control
-              required
-              id="street"
-              type="text"
-              value={newEmployee.street}
-              onChange={handleInputChange}
-            />
-            <Form.Control.Feedback type="invalid">
-              Please choose a street.
-            </Form.Control.Feedback>
-          </Form.Group>
-
+          <InputField
+            label="Street"
+            id="street"
+            value={newEmployee.street}
+            onChange={handleInputChange}
+          />
           {/* City */}
-          <Form.Group>
-            <Form.Label>City</Form.Label>
-            <Form.Control
-              required
-              id="city"
-              type="text"
-              value={newEmployee.city}
-              onChange={handleInputChange}
-            />
-            <Form.Control.Feedback type="invalid">
-              Please choose a city.
-            </Form.Control.Feedback>
-          </Form.Group>
-
+          <InputField
+            label="City"
+            id="city"
+            value={newEmployee.city}
+            onChange={handleInputChange}
+          />
           {/* State */}
           <Dropdown
             label="State"
@@ -202,21 +168,14 @@ const CreateEmployeeView = () => {
           </Dropdown>
 
           {/* Zip Code */}
-          <Form.Group>
-            <Form.Label>Zip Code</Form.Label>
-            <Form.Control
-              required
-              id="zipCode"
-              type="number"
-              value={newEmployee.zipCode}
-              onChange={handleInputChange}
-            />
-            <Form.Control.Feedback type="invalid">
-              Please choose a zip code.
-            </Form.Control.Feedback>
-          </Form.Group>
+          <InputField
+            label="Zip Code"
+            id="zipCode"
+            type="number"
+            value={newEmployee.zipCode}
+            onChange={handleInputChange}
+          />
         </Fieldset>
-
         {/* Department */}
         <Dropdown
           label="department"
@@ -231,14 +190,12 @@ const CreateEmployeeView = () => {
           <option value="Human Resources">Human Resources</option>
           <option value="Legal">Legal</option>
         </Dropdown>
-
         {/* Submit Button */}
         <div className="mt-4 mb-5">
           <Button className="w-100" variant="outline-primary" type="submit">
             Save
           </Button>
         </div>
-
         {/* Confirmation Modal */}
         <Modal
           buttonTitle="Save"
