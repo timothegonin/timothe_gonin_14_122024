@@ -1,7 +1,9 @@
 // import { useRef, useState } from 'react'
+import { useState } from 'react'
 import styled from 'styled-components'
-// import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 // import { createEmployee, hideConfirmationModal } from './employeesSlice'
+import { createEmployee } from './employeesSlice'
 // import { states } from '../../constants'
 
 import Form from 'react-bootstrap/Form'
@@ -49,11 +51,12 @@ const Fieldset = styled.fieldset`
 
 const CreateEmployeeView = () => {
   const { register, handleSubmit } = useForm()
+  const dispatch = useDispatch()
+
   const onSubmit = (data) => {
-    console.log(data)
+    dispatch(createEmployee(data))
   }
 
-  // const dispatch = useDispatch()
   // const modalStatus = useSelector(
   //   (state) => state.employees.confirmationModalDisplayed
   // )
