@@ -1,9 +1,8 @@
 // import { useRef, useState } from 'react'
-import { useState } from 'react'
+// import { useState } from 'react'
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
-// import { createEmployee, hideConfirmationModal } from './employeesSlice'
-import { createEmployee } from './employeesSlice'
+import { createEmployee, hideConfirmationModal } from './employeesSlice'
 // import { states } from '../../constants'
 
 import Form from 'react-bootstrap/Form'
@@ -11,7 +10,7 @@ import InputField from '../../components/InputField'
 // import CustomDatePicker from '../../components/CustomDatePicker'
 // import Dropdown from '../../components/Dropdown'
 import Button from 'react-bootstrap/Button'
-// import { Modal } from 'modal-react-vite'
+import { Modal } from 'modal-react-vite'
 import { useForm } from 'react-hook-form'
 
 /* 
@@ -57,9 +56,9 @@ const CreateEmployeeView = () => {
     dispatch(createEmployee(data))
   }
 
-  // const modalStatus = useSelector(
-  //   (state) => state.employees.confirmationModalDisplayed
-  // )
+  const modalStatus = useSelector(
+    (state) => state.employees.confirmationModalDisplayed
+  )
 
   // const [validated, setValidated] = useState(false)
   // const formRef = useRef(null)
@@ -100,9 +99,9 @@ const CreateEmployeeView = () => {
   //   formRef.current.reset()
   // }
 
-  // const handleCloseModal = () => {
-  //   dispatch(hideConfirmationModal(false))
-  // }
+  const handleCloseModal = () => {
+    dispatch(hideConfirmationModal(false))
+  }
 
   return (
     <section>
@@ -212,13 +211,13 @@ const CreateEmployeeView = () => {
           </Button>
         </div>
         {/* Confirmation Modal */}
-        {/* <Modal
+        <Modal
           buttonTitle="Save"
           title="Employee creation"
           description="Employee created with success !"
           modalStatus={modalStatus}
           onToggle={handleCloseModal}
-        /> */}
+        />
       </Form>
     </section>
   )
