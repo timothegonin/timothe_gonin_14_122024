@@ -3,7 +3,7 @@
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
 import { createEmployee, hideConfirmationModal } from './employeesSlice'
-// import { states } from '../../constants'
+import { states } from '../../constants'
 
 import Form from 'react-bootstrap/Form'
 import InputField from '../../components/InputField'
@@ -163,12 +163,12 @@ const CreateEmployeeView = () => {
             validationRules={{ required: true }}
           />
           {/* State */}
-          {/* <Dropdown
+          <Dropdown
             label="State"
-            htmlForLabel="state"
-            value={newEmployee.state}
-            handler={handleInputChange}
             id="state"
+            name="state"
+            register={register}
+            validationRules={{ required: true }}
           >
             {states.map((state, index) => (
               <option
@@ -178,7 +178,7 @@ const CreateEmployeeView = () => {
                 {state.name}
               </option>
             ))}
-          </Dropdown> */}
+          </Dropdown>
 
           {/* Zip Code */}
           <InputField
