@@ -14,7 +14,15 @@ import PropTypes from 'prop-types'
  * @param {React.ReactNode} children - The child components representing the dropdown options.
  * @returns {JSX.Element} The rendered Dropdown component.
  */
-const Dropdown = ({ label, id, name, register, validationRules, children }) => {
+const Dropdown = ({
+  label,
+  id,
+  name,
+  register,
+  validationRules,
+  children,
+  error,
+}) => {
   return (
     <Form.Group className="pe-auto">
       <Form.Label htmlFor={id}>{label}</Form.Label>
@@ -22,6 +30,7 @@ const Dropdown = ({ label, id, name, register, validationRules, children }) => {
         aria-label={`${label} dropdown menu`}
         role="button"
         id={id}
+        isInvalid={!!error}
         {...register(name, validationRules)}
       >
         <option className="text-muted" type="invalid" value="">
@@ -29,9 +38,11 @@ const Dropdown = ({ label, id, name, register, validationRules, children }) => {
         </option>
         {children}
       </Form.Select>
-      <Form.Control.Feedback type="invalid">
-        Please choose a {label.toLowerCase()}.
-      </Form.Control.Feedback>
+      {error && (
+        <Form.Control.Feedback type="invalid">
+          Please choose a {label.toLowerCase()}.
+        </Form.Control.Feedback>
+      )}
     </Form.Group>
   )
 }
@@ -44,6 +55,7 @@ Dropdown.propTypes = {
   register: PropTypes.func,
   validationRules: PropTypes.objectOf(PropTypes.bool),
   children: PropTypes.array,
+  error: PropTypes.object,
 }
 
 export default Dropdown

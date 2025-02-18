@@ -48,7 +48,12 @@ const Fieldset = styled.fieldset`
  */
 
 const CreateEmployeeView = () => {
-  const { register, handleSubmit, reset } = useForm()
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm()
   const dispatch = useDispatch()
 
   const onSubmit = (data) => {
@@ -120,6 +125,7 @@ const CreateEmployeeView = () => {
           // onChange={handleInputChange}
           register={register}
           validationRules={{ required: true }}
+          error={errors.firstName}
         />
         {/* Last Name */}
         <InputField
@@ -128,6 +134,7 @@ const CreateEmployeeView = () => {
           name="lastName"
           register={register}
           validationRules={{ required: true }}
+          error={errors.lastName}
         />
         {/* Date of Birth */}
         {/* <CustomDatePicker
@@ -153,6 +160,7 @@ const CreateEmployeeView = () => {
             name="street"
             register={register}
             validationRules={{ required: true }}
+            error={errors.street}
           />
           {/* City */}
           <InputField
@@ -161,6 +169,7 @@ const CreateEmployeeView = () => {
             name="city"
             register={register}
             validationRules={{ required: true }}
+            error={errors.city}
           />
           {/* State */}
           <Dropdown
@@ -169,6 +178,7 @@ const CreateEmployeeView = () => {
             name="state"
             register={register}
             validationRules={{ required: true }}
+            error={errors.state}
           >
             {states.map((state, index) => (
               <option
@@ -188,6 +198,7 @@ const CreateEmployeeView = () => {
             type="number"
             register={register}
             validationRules={{ required: true }}
+            error={errors.zipCode}
           />
         </Fieldset>
         {/* Department */}
@@ -197,6 +208,7 @@ const CreateEmployeeView = () => {
           name="department"
           register={register}
           validationRules={{ required: true }}
+          error={errors.department}
         >
           <option value="Sales">Sales</option>
           <option value="Marketing">Marketing</option>

@@ -9,6 +9,7 @@ const InputField = ({
   type = 'text',
   register,
   validationRules,
+  error,
 }) => (
   <Form.Group>
     <Form.Label htmlFor={id}>{label}</Form.Label>
@@ -16,12 +17,14 @@ const InputField = ({
       aria-label={`${label} input`}
       id={id}
       type={type}
+      isInvalid={!!error}
       {...register(name, validationRules)}
-      // ref={ref}
     />
-    <Form.Control.Feedback type="invalid">
-      Please choose a {label.toLowerCase()}.
-    </Form.Control.Feedback>
+    {error && (
+      <Form.Control.Feedback type="invalid">
+        Please choose a {label.toLowerCase()}.
+      </Form.Control.Feedback>
+    )}
   </Form.Group>
 )
 
@@ -32,6 +35,7 @@ InputField.propTypes = {
   type: PropTypes.string,
   register: PropTypes.func,
   validationRules: PropTypes.objectOf(PropTypes.bool),
+  error: PropTypes.object,
 }
 
 export default InputField
