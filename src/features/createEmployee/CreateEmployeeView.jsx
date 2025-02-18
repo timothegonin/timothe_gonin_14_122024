@@ -8,7 +8,7 @@ import { createEmployee, hideConfirmationModal } from './employeesSlice'
 import Form from 'react-bootstrap/Form'
 import InputField from '../../components/InputField'
 // import CustomDatePicker from '../../components/CustomDatePicker'
-// import Dropdown from '../../components/Dropdown'
+import Dropdown from '../../components/Dropdown'
 import Button from 'react-bootstrap/Button'
 import { Modal } from 'modal-react-vite'
 import { useForm } from 'react-hook-form'
@@ -191,19 +191,19 @@ const CreateEmployeeView = () => {
           />
         </Fieldset>
         {/* Department */}
-        {/* <Dropdown
-          label="department"
-          htmlForLabel="department"
-          value={newEmployee.department}
-          handler={handleInputChange}
+        <Dropdown
+          label="Department"
           id="department"
+          name="department"
+          register={register}
+          validationRules={{ required: true }}
         >
           <option value="Sales">Sales</option>
           <option value="Marketing">Marketing</option>
           <option value="Engineering">Engineering</option>
           <option value="Human Resources">Human Resources</option>
           <option value="Legal">Legal</option>
-        </Dropdown> */}
+        </Dropdown>
         {/* Submit Button */}
         <div className="mt-4 mb-5">
           <Button className="w-100" variant="outline-primary" type="submit">

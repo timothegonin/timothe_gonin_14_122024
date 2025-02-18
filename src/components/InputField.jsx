@@ -13,14 +13,11 @@ const InputField = ({
   <Form.Group>
     <Form.Label htmlFor={id}>{label}</Form.Label>
     <Form.Control
-      required
+      aria-label={`${label} input`}
       id={id}
-      // name={name}
       type={type}
-      // value={value}
-      // onChange={onChange}
-      // ref={ref}
       {...register(name, validationRules)}
+      // ref={ref}
     />
     <Form.Control.Feedback type="invalid">
       Please choose a {label.toLowerCase()}.
@@ -31,10 +28,10 @@ const InputField = ({
 InputField.propTypes = {
   label: PropTypes.string,
   id: PropTypes.string,
+  name: PropTypes.string,
   type: PropTypes.string,
-  handler: PropTypes.func,
-  value: PropTypes.string,
-  // onChange: PropTypes.func,
+  register: PropTypes.func,
+  validationRules: PropTypes.objectOf(PropTypes.bool),
 }
 
 export default InputField
