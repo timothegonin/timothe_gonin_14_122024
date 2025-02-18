@@ -1,7 +1,6 @@
 import Form from 'react-bootstrap/Form'
 import PropTypes from 'prop-types'
 
-// const InputField = ({ label, id, type = 'text', value, onChange, ref }) => (
 const InputField = ({
   label,
   id,

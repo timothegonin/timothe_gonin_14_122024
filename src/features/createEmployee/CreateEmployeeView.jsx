@@ -1,4 +1,3 @@
-// import { useRef, useState } from 'react'
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
 import { createEmployee, hideConfirmationModal } from './employeesSlice'
@@ -65,43 +64,8 @@ const CreateEmployeeView = () => {
     (state) => state.employees.confirmationModalDisplayed
   )
 
-  // const [validated, setValidated] = useState(false)
-  // const formRef = useRef(null)
-  // const [newEmployee, setNewEmployee] = useState({
-  //   firstName: '',
-  //   lastName: '',
-  //   dateOfBirth: '',
-  //   startDate: '',
-  //   department: '',
-  //   street: '',
-  //   city: '',
-  //   state: '',
-  //   zipCode: '',
-  // })
-
-  // const handleInputChange = (e) => {
-  //   setNewEmployee({ ...newEmployee, [e.target.id]: e.target.value })
-  // }
-
   // const handleDatePickerChange = (key, value) => {
   //   setNewEmployee({ ...newEmployee, [key]: value })
-  // }
-
-  // const handleSubmit = (event) => {
-  //   event.preventDefault()
-  //   const form = event.currentTarget
-  //   if (form.checkValidity() === false) {
-  //     event.stopPropagation()
-  //     setValidated(true)
-  //     return
-  //   }
-
-  //   dispatch(createEmployee(newEmployee))
-  //   setValidated(false)
-  //   setNewEmployee(
-  //     Object.fromEntries(Object.keys(newEmployee).map((key) => [key, '']))
-  //   )
-  //   formRef.current.reset()
   // }
 
   const handleCloseModal = () => {
@@ -110,19 +74,12 @@ const CreateEmployeeView = () => {
 
   return (
     <section>
-      <Form
-        // ref={formRef}
-        // noValidate
-        // validated={validated}
-        id="create-employee"
-        onSubmit={handleSubmit(onSubmit)}
-      >
+      <Form id="create-employee" onSubmit={handleSubmit(onSubmit)}>
         {/* First Name */}
         <InputField
           label="First Name"
           id="firstName"
           name="firstName"
-          // onChange={handleInputChange}
           register={register}
           validationRules={{ required: true }}
           error={errors.firstName}
