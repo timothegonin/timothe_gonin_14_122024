@@ -1,5 +1,4 @@
 // import { useRef, useState } from 'react'
-// import { useState } from 'react'
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
 import { createEmployee, hideConfirmationModal } from './employeesSlice'
@@ -49,11 +48,12 @@ const Fieldset = styled.fieldset`
  */
 
 const CreateEmployeeView = () => {
-  const { register, handleSubmit } = useForm()
+  const { register, handleSubmit, reset } = useForm()
   const dispatch = useDispatch()
 
   const onSubmit = (data) => {
     dispatch(createEmployee(data))
+    reset()
   }
 
   const modalStatus = useSelector(
