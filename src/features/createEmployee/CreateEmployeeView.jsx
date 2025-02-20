@@ -5,7 +5,6 @@ import { states } from '../../constants'
 
 import Form from 'react-bootstrap/Form'
 import InputField from '../../components/InputField'
-// import CustomDatePicker from '../../components/CustomDatePicker'
 import Dropdown from '../../components/Dropdown'
 import Button from 'react-bootstrap/Button'
 import { Modal } from 'modal-react-vite'
@@ -64,10 +63,6 @@ const CreateEmployeeView = () => {
     (state) => state.employees.confirmationModalDisplayed
   )
 
-  // const handleDatePickerChange = (key, value) => {
-  //   setNewEmployee({ ...newEmployee, [key]: value })
-  // }
-
   const handleCloseModal = () => {
     dispatch(hideConfirmationModal(false))
   }
@@ -103,12 +98,6 @@ const CreateEmployeeView = () => {
           validationRules={{ required: true }}
           error={errors.dateOfBirth}
         />
-        {/* <CustomDatePicker
-          label="Date of Birth"
-          htmlForLabel="date-of-birth"
-          value={newEmployee.dateOfBirth}
-          handler={(date) => handleDatePickerChange('dateOfBirth', date)}
-        /> */}
         {/* Start Date */}
         <InputField
           label="Start date"
@@ -119,12 +108,6 @@ const CreateEmployeeView = () => {
           validationRules={{ required: true }}
           error={errors.dateOfBirth}
         />
-        {/* <CustomDatePicker
-          label="Start Date"
-          htmlForLabel="start-date"
-          value={newEmployee.startDate}
-          handler={(date) => handleDatePickerChange('startDate', date)}
-        /> */}
         {/* FIELDSET ADRESS */}
         <Fieldset className="address">
           <legend>Address</legend>
