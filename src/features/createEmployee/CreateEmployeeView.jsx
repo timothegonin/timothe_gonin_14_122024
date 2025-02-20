@@ -94,6 +94,15 @@ const CreateEmployeeView = () => {
           error={errors.lastName}
         />
         {/* Date of Birth */}
+        <InputField
+          label="Date of Birth"
+          id="dateOfBirth"
+          name="dateOfBirth"
+          type="date"
+          register={register}
+          validationRules={{ required: true }}
+          error={errors.dateOfBirth}
+        />
         {/* <CustomDatePicker
           label="Date of Birth"
           htmlForLabel="date-of-birth"
@@ -101,6 +110,15 @@ const CreateEmployeeView = () => {
           handler={(date) => handleDatePickerChange('dateOfBirth', date)}
         /> */}
         {/* Start Date */}
+        <InputField
+          label="Start date"
+          id="startDate"
+          name="startDate"
+          type="date"
+          register={register}
+          validationRules={{ required: true }}
+          error={errors.dateOfBirth}
+        />
         {/* <CustomDatePicker
           label="Start Date"
           htmlForLabel="start-date"
