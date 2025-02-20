@@ -106,7 +106,7 @@ const CreateEmployeeView = () => {
           type="date"
           register={register}
           validationRules={{ required: true }}
-          error={errors.dateOfBirth}
+          error={errors.startDate}
         />
         {/* FIELDSET ADRESS */}
         <Fieldset className="address">
