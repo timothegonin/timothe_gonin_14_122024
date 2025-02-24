@@ -1,14 +1,14 @@
-import { useRef, useState } from 'react'
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
 import { createEmployee, hideConfirmationModal } from './employeesSlice'
 import { states } from '../../constants'
 
 import Form from 'react-bootstrap/Form'
-import CustomDatePicker from '../../components/CustomDatePicker'
+import InputField from '../../components/InputField'
 import Dropdown from '../../components/Dropdown'
 import Button from 'react-bootstrap/Button'
 import { Modal } from 'modal-react-vite'
+import { useForm } from 'react-hook-form'
 
 /* 
   ┌─────────────────────────────────────────────────────────────────────────┐
@@ -46,49 +46,22 @@ const Fieldset = styled.fieldset`
  */
 
 const CreateEmployeeView = () => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm()
   const dispatch = useDispatch()
+
+  const onSubmit = (data) => {
+    dispatch(createEmployee(data))
+    reset()
+  }
+
   const modalStatus = useSelector(
     (state) => state.employees.confirmationModalDisplayed
   )
-
-  const [validated, setValidated] = useState(false)
-  const formRef = useRef(null)
-  const [newEmployee, setNewEmployee] = useState({
-    firstName: '',
-    lastName: '',
-    dateOfBirth: '',
-    startDate: '',
-    department: '',
-    street: '',
-    city: '',
-    state: '',
-    zipCode: '',
-  })
-
-  const handleInputChange = (e) => {
-    setNewEmployee({ ...newEmployee, [e.target.id]: e.target.value })
-  }
-
-  const handleDatePickerChange = (key, value) => {
-    setNewEmployee({ ...newEmployee, [key]: value })
-  }
-
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    const form = event.currentTarget
-    if (form.checkValidity() === false) {
-      event.stopPropagation()
-      setValidated(true)
-      return
-    }
-
-    dispatch(createEmployee(newEmployee))
-    setValidated(false)
-    setNewEmployee(
-      Object.fromEntries(Object.keys(newEmployee).map((key) => [key, '']))
-    )
-    formRef.current.reset()
-  }
 
   const handleCloseModal = () => {
     dispatch(hideConfirmationModal(false))
@@ -96,100 +69,74 @@ const CreateEmployeeView = () => {
 
   return (
     <section>
-      <Form
-        ref={formRef}
-        noValidate
-        validated={validated}
-        id="create-employee"
-        onSubmit={handleSubmit}
-      >
+      <Form id="create-employee" onSubmit={handleSubmit(onSubmit)}>
         {/* First Name */}
-        <Form.Group>
-          <Form.Label htmlFor="first-name">First Name</Form.Label>
-          <Form.Control
-            required
-            type="text"
-            id="firstName"
-            value={newEmployee.firstName}
-            onChange={handleInputChange}
-          />
-          <Form.Control.Feedback type="invalid">
-            Please choose a first name.
-          </Form.Control.Feedback>
-        </Form.Group>
-
+        <InputField
+          label="First Name"
+          id="firstName"
+          name="firstName"
+          register={register}
+          validationRules={{ required: true }}
+          error={errors.firstName}
+        />
         {/* Last Name */}
-        <Form.Group>
-          <Form.Label htmlFor="last-name">Last Name</Form.Label>
-          <Form.Control
-            required
-            type="text"
-            id="lastName"
-            value={newEmployee.lastName}
-            onChange={handleInputChange}
-          />
-          <Form.Control.Feedback type="invalid">
-            Please choose a last name.
-          </Form.Control.Feedback>
-        </Form.Group>
-
+        <InputField
+          label="Last Name"
+          id="lastName"
+          name="lastName"
+          register={register}
+          validationRules={{ required: true }}
+          error={errors.lastName}
+        />
         {/* Date of Birth */}
-        <CustomDatePicker
+        <InputField
           label="Date of Birth"
-          htmlForLabel="date-of-birth"
-          value={newEmployee.dateOfBirth}
-          handler={(date) => handleDatePickerChange('dateOfBirth', date)}
+          id="dateOfBirth"
+          name="dateOfBirth"
+          type="date"
+          register={register}
+          validationRules={{ required: true }}
+          error={errors.dateOfBirth}
         />
-
         {/* Start Date */}
-        <CustomDatePicker
-          label="Start Date"
-          htmlForLabel="start-date"
-          value={newEmployee.startDate}
-          handler={(date) => handleDatePickerChange('startDate', date)}
+        <InputField
+          label="Start date"
+          id="startDate"
+          name="startDate"
+          type="date"
+          register={register}
+          validationRules={{ required: true }}
+          error={errors.startDate}
         />
-
         {/* FIELDSET ADRESS */}
         <Fieldset className="address">
           <legend>Address</legend>
-
           {/* Street */}
-          <Form.Group>
-            <Form.Label>Street</Form.Label>
-            <Form.Control
-              required
-              id="street"
-              type="text"
-              value={newEmployee.street}
-              onChange={handleInputChange}
-            />
-            <Form.Control.Feedback type="invalid">
-              Please choose a street.
-            </Form.Control.Feedback>
-          </Form.Group>
-
+          <InputField
+            label="Street"
+            id="street"
+            name="street"
+            register={register}
+            validationRules={{ required: true }}
+            error={errors.street}
+          />
           {/* City */}
-          <Form.Group>
-            <Form.Label>City</Form.Label>
-            <Form.Control
-              required
-              id="city"
-              type="text"
-              value={newEmployee.city}
-              onChange={handleInputChange}
-            />
-            <Form.Control.Feedback type="invalid">
-              Please choose a city.
-            </Form.Control.Feedback>
-          </Form.Group>
-
+          <InputField
+            label="City"
+            id="city"
+            name="city"
+            register={register}
+            validationRules={{ required: true }}
+            error={errors.city}
+          />
           {/* State */}
           <Dropdown
             label="State"
-            htmlForLabel="state"
-            value={newEmployee.state}
-            handler={handleInputChange}
             id="state"
+            name="state"
+            register={register}
+            validationRules={{ required: true }}
+            error={errors.state}
           >
             {states.map((state, index) => (
               <option
@@ -202,28 +149,24 @@ const CreateEmployeeView = () => {
           </Dropdown>
 
           {/* Zip Code */}
-          <Form.Group>
-            <Form.Label>Zip Code</Form.Label>
-            <Form.Control
-              required
-              id="zipCode"
-              type="number"
-              value={newEmployee.zipCode}
-              onChange={handleInputChange}
-            />
-            <Form.Control.Feedback type="invalid">
-              Please choose a zip code.
-            </Form.Control.Feedback>
-          </Form.Group>
+          <InputField
+            label="Zip Code"
+            id="zipCode"
+            name="zipCode"
+            type="number"
+            register={register}
+            validationRules={{ required: true }}
+            error={errors.zipCode}
+          />
         </Fieldset>
-
         {/* Department */}
         <Dropdown
-          label="department"
-          htmlForLabel="department"
-          value={newEmployee.department}
-          handler={handleInputChange}
+          label="Department"
           id="department"
+          name="department"
+          register={register}
+          validationRules={{ required: true }}
+          error={errors.department}
         >
           <option value="Sales">Sales</option>
           <option value="Marketing">Marketing</option>
@@ -231,14 +174,12 @@ const CreateEmployeeView = () => {
           <option value="Human Resources">Human Resources</option>
           <option value="Legal">Legal</option>
         </Dropdown>
-
         {/* Submit Button */}
         <div className="mt-4 mb-5">
           <Button className="w-100" variant="outline-primary" type="submit">
             Save
           </Button>
         </div>
-
         {/* Confirmation Modal */}
         <Modal
           buttonTitle="Save"
