@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: features/employeesTable/EmployeesTableView.jsx</title>
+    <title>JSDoc: Source: App.jsx</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: features/employeesTable/EmployeesTableView.jsx</h1>
+    <h1 class="page-title">Source: App.jsx</h1>
 
     
 
@@ -26,41 +26,25 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { useSelector } from 'react-redux'
-import Spinner from 'react-bootstrap/Spinner'
-import { SortableTable } from 'sortable-table-react'
+            <pre class="prettyprint source linenums"><code>import React from 'react'
+import Header from './components/Header'
+import Router from './router/Router'
 
 /**
- * Component for displaying a table of employee data.
+ * Main application component.
  * @component
- * @returns {JSX.Element} - The rendered EmployeesTableView component.
+ * @returns {JSX.Element} - The rendered App component.
  */
-
-const EmployeesTableView = () => {
-  const employees = useSelector((state) => state.employees.currentEmployees)
-
-  const tableHeadsList = [
-    'First Name',
-    'Last Name',
-    'Start Date',
-    'Department',
-    'Date of Birth',
-    'Street',
-    'City',
-    'State',
-    'Zip Code',
-  ]
-
-  return employees.length === 0 ? (
-    &lt;Spinner animation="border" role="status" variant="primary">
-      &lt;span className="visually-hidden">Loading...&lt;/span>
-    &lt;/Spinner>
-  ) : (
-    &lt;SortableTable data={employees} tableHeads={tableHeadsList} />
+function App() {
+  return (
+    &lt;React.Fragment>
+      &lt;Header />
+      &lt;Router />
+    &lt;/React.Fragment>
   )
 }
 
-export default EmployeesTableView
+export default App
 </code></pre>
         </article>
     </section>

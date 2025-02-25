@@ -5,10 +5,12 @@ import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 
 /**
- * The `Header` component represents the header navigation bar of the application.
- * It includes a navigation brand logo and a link to toggle between the home page and the employee list page.
+ * The `Header` component represents the navigation bar of the application.
+ * It displays the app logo and a navigation link that dynamically switches
+ * between the home page (`/`) and the employee list page (`/employees`).
  *
- * @returns {JSX.Element} The rendered Header component.
+ * @component
+ * @returns {JSX.Element} The rendered `Header` component.
  */
 const Header = () => {
   const { pathname } = useLocation()

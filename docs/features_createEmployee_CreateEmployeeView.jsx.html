@@ -26,18 +26,17 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React, { useRef, useState } from 'react'
-import styled from 'styled-components'
-import { useDispatch } from 'react-redux'
-import { createEmployee } from './employeesSlice'
+            <pre class="prettyprint source linenums"><code>import styled from 'styled-components'
+import { useDispatch, useSelector } from 'react-redux'
+import { createEmployee, hideConfirmationModal } from './employeesSlice'
 import { states } from '../../constants'
-import useFormFields from '../../hooks/useFormFields'
 
 import Form from 'react-bootstrap/Form'
-import CustomDatePicker from '../../components/DatePicker'
-import Button from 'react-bootstrap/Button'
+import InputField from '../../components/InputField'
 import Dropdown from '../../components/Dropdown'
-import ConfirmationModal from '../../components/ConfirmationModal'
+import Button from 'react-bootstrap/Button'
+import { Modal } from 'modal-react-vite'
+import { useForm } from 'react-hook-form'
 
 /* 
   ┌─────────────────────────────────────────────────────────────────────────┐
@@ -75,149 +74,97 @@ const Fieldset = styled.fieldset`
  */
 
 const CreateEmployeeView = () => {
-  const dispatch = useDispatch()
   const {
-    firstName,
-    setFirstName,
-    lastName,
-    setLastName,
-    dateOfBirth,
-    setDateOfBirth,
-    startDate,
-    setStartDate,
-    department,
-    setDepartment,
-    street,
-    setStreet,
-    city,
-    setCity,
-    state,
-    setState,
-    zipCode,
-    setZipCode,
-    resetFormFields,
-  } = useFormFields()
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm()
+  const dispatch = useDispatch()
 
-  const [validated, setValidated] = useState(false)
-  const formRef = useRef(null)
-
-  const handleConfirmationModalClose = () => {
-    setValidated(false)
-    resetFormFields()
-    formRef.current.reset()
+  const onSubmit = (data) => {
+    dispatch(createEmployee(data))
+    reset()
   }
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    const form = event.currentTarget
-    if (form.checkValidity() === false) {
-      event.stopPropagation()
-      setValidated(true)
-      return
-    }
+  const modalStatus = useSelector(
+    (state) => state.employees.confirmationModalDisplayed
+  )
 
-    const employee = {
-      firstName,
-      lastName,
-      dateOfBirth,
-      startDate,
-      department,
-      street,
-      city,
-      state,
-      zipCode,
-    }
-    dispatch(createEmployee(employee))
+  const handleCloseModal = () => {
+    dispatch(hideConfirmationModal(false))
   }
 
   return (
     &lt;section>
-      &lt;Form
-        ref={formRef}
-        noValidate
-        validated={validated}
-        id="create-employee"
-        onSubmit={handleSubmit}
-      >
+      &lt;Form id="create-employee" onSubmit={handleSubmit(onSubmit)}>
         {/* First Name */}
-        &lt;Form.Group>
-          &lt;Form.Label htmlFor="first-name">First Name&lt;/Form.Label>
-          &lt;Form.Control
-            required
-            type="text"
-            id="first-name"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-          />
-          &lt;Form.Control.Feedback type="invalid">
-            Please choose a first name.
-          &lt;/Form.Control.Feedback>
-        &lt;/Form.Group>
+        &lt;InputField
+          label="First Name"
+          id="firstName"
+          name="firstName"
+          register={register}
+          validationRules={{ required: true }}
+          error={errors.firstName}
+        />
         {/* Last Name */}
-        &lt;Form.Group>
-          &lt;Form.Label htmlFor="last-name">Last Name&lt;/Form.Label>
-          &lt;Form.Control
-            required
-            type="text"
-            id="last-name"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-          />
-          &lt;Form.Control.Feedback type="invalid">
-            Please choose a last name.
-          &lt;/Form.Control.Feedback>
-        &lt;/Form.Group>
+        &lt;InputField
+          label="Last Name"
+          id="lastName"
+          name="lastName"
+          register={register}
+          validationRules={{ required: true }}
+          error={errors.lastName}
+        />
         {/* Date of Birth */}
-        &lt;CustomDatePicker
+        &lt;InputField
           label="Date of Birth"
-          htmlForLabel="date-of-birth"
-          value={dateOfBirth}
-          handler={setDateOfBirth}
+          id="dateOfBirth"
+          name="dateOfBirth"
+          type="date"
+          register={register}
+          validationRules={{ required: true }}
+          error={errors.dateOfBirth}
         />
         {/* Start Date */}
-        &lt;CustomDatePicker
-          label="Start Date"
-          htmlForLabel="start-date"
-          value={startDate}
-          handler={setStartDate}
+        &lt;InputField
+          label="Start date"
+          id="startDate"
+          name="startDate"
+          type="date"
+          register={register}
+          validationRules={{ required: true }}
+          error={errors.startDate}
         />
-        {/* Address */}
+        {/* FIELDSET ADRESS */}
         &lt;Fieldset className="address">
           &lt;legend>Address&lt;/legend>
           {/* Street */}
-          &lt;Form.Group>
-            &lt;Form.Label>Street&lt;/Form.Label>
-            &lt;Form.Control
-              required
-              id="street"
-              type="text"
-              value={street}
-              onChange={(e) => setStreet(e.target.value)}
-            />
-            &lt;Form.Control.Feedback type="invalid">
-              Please choose a street.
-            &lt;/Form.Control.Feedback>
-          &lt;/Form.Group>
+          &lt;InputField
+            label="Street"
+            id="street"
+            name="street"
+            register={register}
+            validationRules={{ required: true }}
+            error={errors.street}
+          />
           {/* City */}
-          &lt;Form.Group>
-            &lt;Form.Label>City&lt;/Form.Label>
-            &lt;Form.Control
-              required
-              id="city"
-              type="text"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-            />
-            &lt;Form.Control.Feedback type="invalid">
-              Please choose a city.
-            &lt;/Form.Control.Feedback>
-          &lt;/Form.Group>
+          &lt;InputField
+            label="City"
+            id="city"
+            name="city"
+            register={register}
+            validationRules={{ required: true }}
+            error={errors.city}
+          />
           {/* State */}
           &lt;Dropdown
             label="State"
-            htmlForLabel="state"
-            value={department}
-            handler={setState}
+            id="state"
+            name="state"
+            register={register}
+            validationRules={{ required: true }}
+            error={errors.state}
           >
             {states.map((state, index) => (
               &lt;option
@@ -228,27 +175,26 @@ const CreateEmployeeView = () => {
               &lt;/option>
             ))}
           &lt;/Dropdown>
+
           {/* Zip Code */}
-          &lt;Form.Group>
-            &lt;Form.Label>Zip Code&lt;/Form.Label>
-            &lt;Form.Control
-              required
-              id="zip-code"
-              type="number"
-              value={zipCode}
-              onChange={(e) => setZipCode(e.target.value)}
-            />
-            &lt;Form.Control.Feedback type="invalid">
-              Please choose a zip code.
-            &lt;/Form.Control.Feedback>
-          &lt;/Form.Group>
+          &lt;InputField
+            label="Zip Code"
+            id="zipCode"
+            name="zipCode"
+            type="number"
+            register={register}
+            validationRules={{ required: true }}
+            error={errors.zipCode}
+          />
         &lt;/Fieldset>
         {/* Department */}
         &lt;Dropdown
-          label="Departement"
-          htmlForLabel="departement"
-          value={department}
-          handler={setDepartment}
+          label="Department"
+          id="department"
+          name="department"
+          register={register}
+          validationRules={{ required: true }}
+          error={errors.department}
         >
           &lt;option value="Sales">Sales&lt;/option>
           &lt;option value="Marketing">Marketing&lt;/option>
@@ -263,7 +209,13 @@ const CreateEmployeeView = () => {
           &lt;/Button>
         &lt;/div>
         {/* Confirmation Modal */}
-        &lt;ConfirmationModal onClose={handleConfirmationModalClose} />
+        &lt;Modal
+          buttonTitle="Save"
+          title="Employee creation"
+          description="Employee created with success !"
+          modalStatus={modalStatus}
+          onToggle={handleCloseModal}
+        />
       &lt;/Form>
     &lt;/section>
   )
@@ -280,13 +232,13 @@ export default CreateEmployeeView
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-employeesSlice.html">employeesSlice</a></li></ul><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#ConfirmationModal">ConfirmationModal</a></li><li><a href="global.html#CreateEmployee">CreateEmployee</a></li><li><a href="global.html#CreateEmployeeView">CreateEmployeeView</a></li><li><a href="global.html#CurrentEmployees">CurrentEmployees</a></li><li><a href="global.html#CustomDatePicker">CustomDatePicker</a></li><li><a href="global.html#Dropdown">Dropdown</a></li><li><a href="global.html#EmployeesTableView">EmployeesTableView</a></li><li><a href="global.html#Error">Error</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Router">Router</a></li><li><a href="global.html#states">states</a></li><li><a href="global.html#useFormFields">useFormFields</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-employeesSlice.html">employeesSlice</a></li></ul><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#CreateEmployee">CreateEmployee</a></li><li><a href="global.html#CreateEmployeeView">CreateEmployeeView</a></li><li><a href="global.html#CurrentEmployees">CurrentEmployees</a></li><li><a href="global.html#Dropdown">Dropdown</a></li><li><a href="global.html#EmployeesTableView">EmployeesTableView</a></li><li><a href="global.html#Error">Error</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#InputField">InputField</a></li><li><a href="global.html#Router">Router</a></li><li><a href="global.html#states">states</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Sep 20 2023 09:43:21 GMT+0200 (heure d’été d’Europe centrale)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Tue Feb 25 2025 14:05:37 GMT+0100 (heure normale d’Europe centrale)
 </footer>
 
 <script> prettyPrint(); </script>

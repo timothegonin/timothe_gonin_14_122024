@@ -2,17 +2,19 @@ import Form from 'react-bootstrap/Form'
 import PropTypes from 'prop-types'
 
 /**
- * The `Dropdown` component is a reusable dropdown menu component built on top of
- * the `react-bootstrap` library. It provides a styled dropdown menu for selecting options.
+ * A reusable dropdown component built with `react-bootstrap`, providing a styled select input
+ * with validation support.
  *
  * @component
- * @param {string} label - The label text for the dropdown.
- * @param {string} htmlForLabel - The `htmlFor` attribute for the associated label.
- * @param {string} value - The initial selected value for the dropdown.
- * @param {function} handler - A callback function that is called when an option is selected.
- *   It receives the selected option's value as an argument.
- * @param {React.ReactNode} children - The child components representing the dropdown options.
- * @returns {JSX.Element} The rendered Dropdown component.
+ * @param {Object} props - The properties passed to the component.
+ * @param {string} props.label - The label text displayed above the dropdown.
+ * @param {string} props.id - The unique identifier for the dropdown element.
+ * @param {string} props.name - The name attribute for the dropdown, used for form handling.
+ * @param {function} props.register - A function from `react-hook-form` to register the input for validation.
+ * @param {Object} props.validationRules - The validation rules applied to the dropdown input.
+ * @param {React.ReactNode} props.children - The child elements representing the dropdown options.
+ * @param {Object} [props.error] - The validation error object, if any, which determines the invalid state.
+ * @returns {JSX.Element} The rendered `Dropdown` component.
  */
 const Dropdown = ({
   label,
@@ -48,13 +50,12 @@ const Dropdown = ({
 }
 
 Dropdown.propTypes = {
-  label: PropTypes.string,
-  id: PropTypes.string,
-  name: PropTypes.string,
-  type: PropTypes.string,
-  register: PropTypes.func,
-  validationRules: PropTypes.objectOf(PropTypes.bool),
-  children: PropTypes.array,
+  label: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  register: PropTypes.func.isRequired,
+  validationRules: PropTypes.object,
+  children: PropTypes.node.isRequired,
   error: PropTypes.object,
 }
 
