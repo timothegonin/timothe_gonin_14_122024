@@ -3,14 +3,23 @@ import Spinner from 'react-bootstrap/Spinner'
 import { SortableTable } from 'sortable-table-react'
 
 /**
- * Component for displaying a table of employee data.
+ * Component for displaying a sortable table of employee data.
+ * If no employees are available, a loading spinner is shown.
+ *
  * @component
- * @returns {JSX.Element} - The rendered EmployeesTableView component.
+ * @returns {JSX.Element} - The rendered `EmployeesTableView` component.
  */
-
 const EmployeesTableView = () => {
+  /**
+   * Retrieves the list of employees from the Redux store.
+   * @type {Employee[]}
+   */
   const employees = useSelector((state) => state.employees.currentEmployees)
 
+  /**
+   * Table headers defining the columns displayed in the sortable table.
+   * @type {string[]}
+   */
   const tableHeadsList = [
     'First Name',
     'Last Name',

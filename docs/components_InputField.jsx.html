@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: components/Dropdown.jsx</title>
+    <title>JSDoc: Source: components/InputField.jsx</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: components/Dropdown.jsx</h1>
+    <h1 class="page-title">Source: components/InputField.jsx</h1>
 
     
 
@@ -30,64 +30,57 @@
 import PropTypes from 'prop-types'
 
 /**
- * A reusable dropdown component built with `react-bootstrap`, providing a styled select input
- * with validation support.
+ * A reusable input field component built with `react-bootstrap` that integrates
+ * with form validation via react-hook-form.
  *
  * @component
- * @param {Object} props - The properties passed to the component.
- * @param {string} props.label - The label text displayed above the dropdown.
- * @param {string} props.id - The unique identifier for the dropdown element.
- * @param {string} props.name - The name attribute for the dropdown, used for form handling.
- * @param {function} props.register - A function from `react-hook-form` to register the input for validation.
- * @param {Object} props.validationRules - The validation rules applied to the dropdown input.
- * @param {React.ReactNode} props.children - The child elements representing the dropdown options.
- * @param {Object} [props.error] - The validation error object, if any, which determines the invalid state.
- * @returns {JSX.Element} The rendered `Dropdown` component.
+ * @param {Object} props - The component props.
+ * @param {string} props.label - The label text displayed above the input field.
+ * @param {string} props.id - The unique identifier for the input element.
+ * @param {string} props.name - The name attribute of the input element, used for form handling.
+ * @param {string} [props.type='text'] - The type of the input field (e.g., 'text', 'email', 'password').
+ * @param {function} props.register - The registration function from react-hook-form used to link the input.
+ * @param {Object} [props.validationRules] - The validation rules for the input field.
+ * @param {Object} [props.error] - The error object containing validation errors for this field.
+ * @returns {JSX.Element} The rendered `InputField` component.
  */
-const Dropdown = ({
+const InputField = ({
   label,
   id,
   name,
+  type = 'text',
   register,
   validationRules,
-  children,
   error,
-}) => {
-  return (
-    &lt;Form.Group className="pe-auto">
-      &lt;Form.Label htmlFor={id}>{label}&lt;/Form.Label>
-      &lt;Form.Select
-        aria-label={`${label} dropdown menu`}
-        role="button"
-        id={id}
-        isInvalid={!!error}
-        {...register(name, validationRules)}
-      >
-        &lt;option className="text-muted" type="invalid" value="">
-          Choose your {label.toLowerCase()}
-        &lt;/option>
-        {children}
-      &lt;/Form.Select>
-      {error &amp;&amp; (
-        &lt;Form.Control.Feedback type="invalid">
-          Please choose a {label.toLowerCase()}.
-        &lt;/Form.Control.Feedback>
-      )}
-    &lt;/Form.Group>
-  )
-}
+}) => (
+  &lt;Form.Group>
+    &lt;Form.Label htmlFor={id}>{label}&lt;/Form.Label>
+    &lt;Form.Control
+      aria-label={`${label} input`}
+      id={id}
+      type={type}
+      isInvalid={!!error}
+      {...register(name, validationRules)}
+    />
+    {error &amp;&amp; (
+      &lt;Form.Control.Feedback type="invalid">
+        Please choose a {label.toLowerCase()}.
+      &lt;/Form.Control.Feedback>
+    )}
+  &lt;/Form.Group>
+)
 
-Dropdown.propTypes = {
+InputField.propTypes = {
   label: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  type: PropTypes.string,
   register: PropTypes.func.isRequired,
   validationRules: PropTypes.object,
-  children: PropTypes.node.isRequired,
   error: PropTypes.object,
 }
 
-export default Dropdown
+export default InputField
 </code></pre>
         </article>
     </section>
