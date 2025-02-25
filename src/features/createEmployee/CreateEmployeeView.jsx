@@ -36,15 +36,15 @@ const Fieldset = styled.fieldset`
  */
 
 /**
- * The `CreateEmployeeView` component represents the view for creating a new employee.
+ * The `CreateEmployeeView` component provides a form for adding a new employee.
  *
- * This component includes a form with various fields for entering employee information,
- * such as first name, last name, date of birth, and address details.
+ * It includes fields for personal details (first name, last name, date of birth),
+ * address information (street, city, state, zip code), and department selection.
+ * The form integrates with `react-hook-form` for validation and Redux for state management.
  *
  * @component
- * @returns {JSX.Element} The rendered CreateEmployeeView component.
+ * @returns {JSX.Element} The rendered `CreateEmployeeView` component.
  */
-
 const CreateEmployeeView = () => {
   const {
     register,
@@ -54,15 +54,36 @@ const CreateEmployeeView = () => {
   } = useForm()
   const dispatch = useDispatch()
 
+  /**
+   * Handles form submission, dispatching an action to create a new employee.
+   *
+   * @param {Object} data - The submitted form data.
+   * @param {string} data.firstName - The first name of the employee.
+   * @param {string} data.lastName - The last name of the employee.
+   * @param {string} data.dateOfBirth - The birth date of the employee.
+   * @param {string} data.startDate - The start date of employment.
+   * @param {string} data.street - The street address of the employee.
+   * @param {string} data.city - The city where the employee resides.
+   * @param {string} data.state - The state abbreviation.
+   * @param {string} data.zipCode - The postal code.
+   * @param {string} data.department - The department the employee belongs to.
+   */
   const onSubmit = (data) => {
     dispatch(createEmployee(data))
     reset()
   }
 
+  /**
+   * Retrieves the confirmation modal status from Redux store.
+   * @type {boolean}
+   */
   const modalStatus = useSelector(
     (state) => state.employees.confirmationModalDisplayed
   )
 
+  /**
+   * Closes the confirmation modal.
+   */
   const handleCloseModal = () => {
     dispatch(hideConfirmationModal(false))
   }
@@ -100,7 +121,7 @@ const CreateEmployeeView = () => {
         />
         {/* Start Date */}
         <InputField
-          label="Start date"
+          label="Start Date"
           id="startDate"
           name="startDate"
           type="date"
@@ -108,7 +129,7 @@ const CreateEmployeeView = () => {
           validationRules={{ required: true }}
           error={errors.startDate}
         />
-        {/* FIELDSET ADRESS */}
+        {/* FIELDSET ADDRESS */}
         <Fieldset className="address">
           <legend>Address</legend>
           {/* Street */}
@@ -147,7 +168,6 @@ const CreateEmployeeView = () => {
               </option>
             ))}
           </Dropdown>
-
           {/* Zip Code */}
           <InputField
             label="Zip Code"
@@ -184,7 +204,7 @@ const CreateEmployeeView = () => {
         <Modal
           buttonTitle="Save"
           title="Employee creation"
-          description="Employee created with success !"
+          description="Employee created with success!"
           modalStatus={modalStatus}
           onToggle={handleCloseModal}
         />

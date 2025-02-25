@@ -1,18 +1,21 @@
-import React from 'react'
 import Header from './components/Header'
 import Router from './router/Router'
 
 /**
- * Main application component.
+ * Root component of the application.
+ *
+ * This component is responsible for rendering the main layout of the application,
+ * including the `Header` and the `Router` that manages navigation between pages.
+ *
  * @component
- * @returns {JSX.Element} - The rendered App component.
+ * @returns {JSX.Element} The rendered `App` component.
  */
 function App() {
   return (
-    <React.Fragment>
+    <>
       <Header />
       <Router />
-    </React.Fragment>
+    </>
   )
 }
 

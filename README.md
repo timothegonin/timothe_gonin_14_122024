@@ -1,79 +1,82 @@
-# Openclassrooms - Project 14 - HRNet
+# OpenClassrooms - Project 14 - HRNet
 
-Web application that manages employee records.
+## Web Application for Employee Management
+
+HRNet is a web application designed to manage employee records efficiently.
 
 ![JavaScript](https://img.shields.io/badge/Language-JavaScript-f7df1e)
 ![React](https://img.shields.io/badge/Framework-React-5ED3F3)
 ![Redux](https://img.shields.io/badge/State_Manager-Redux--Tool--Kit-764abc)
 ![React-Bootstrap](https://img.shields.io/badge/Front--end_Framework-React--Bootstrap-41E0FD)
 
-### Features description :
-
-- Enter employee information into a form
-- Displaying data in a sortable table.
-
 ---
+
+## Features
+
+- **Employee Record Management**: Enter employee information through a user-friendly form.
+- **Sortable Data Table**: Display and sort employee records efficiently.
 
 ---
 
 ## Prerequisites
 
-**NodeJS :** (v16.15.0 or later)
-**Npm :** (v7.24.0 or later) / **Yarn :** (v1.22.18 or later)
+Ensure you have the following installed:
+
+- **Node.js**: v20.15.0 or later
+- **Npm**: v10.7.0 or later / **Yarn**: v1.22.21 or later
 
 ---
 
----
+## Installation & Local Setup
 
-## Frontend _Installation - Run locally_
+### 1. Clone the Repository
 
-### 1 - Clone this repository in a new terminal and move to directory
+```bash
+git clone https://github.com/TimotheGonin/timothe_gonin_14_072023.git
+cd timothe_gonin_14_072023
+```
 
-`git clone https://github.com/TimotheGonin/timothe_gonin_14_072023.git`
+### 2. Install Dependencies
 
-### 2 - Open a terminal window in the cloned project and run the following commands
-
-- **Install dependencies**
-
-_npm_
+Using **npm**:
 
 ```bash
 npm install
 ```
 
-_yarn_
+Using **yarn**:
 
 ```bash
 yarn
 ```
 
-- **Start local dev server**
-  _npm_
+### 3. Start the Development Server
+
+Using **npm**:
 
 ```bash
-npm run start
+npm run dev
 ```
 
-_yarn_
+Using **yarn**:
 
 ```bash
 yarn start
 ```
 
-#### _Then navigate to [https://localhost:3001](https://localhost:3001)_
+Now, navigate to [http://localhost:5173](http://localhost:5173) in your browser.
 
 ---
 
----
+## Additional Resources
 
-## Appendix
+For more details on the libraries used in this project, check out the following repositories:
 
-##### _To learn more about how the sortable table works, you can visit [this repository](https://github.com/TimotheGonin/sortable-table-react)_
-
----
+- **Sortable Table Component**: [Sortable Table React](https://github.com/TimotheGonin/sortable-table-react)
+- **Custom Modal Component**: [Modal React Vite](https://github.com/timothegonin/modal-react-vite)
 
 ---
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+This project is licensed under the [MIT License](https://choosealicense.com/licenses/mit/).

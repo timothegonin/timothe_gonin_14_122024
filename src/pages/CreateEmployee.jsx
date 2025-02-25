@@ -2,12 +2,14 @@ import { Helmet, HelmetProvider } from 'react-helmet-async'
 import CreateEmployeeView from '../features/createEmployee/CreateEmployeeView'
 
 /**
- * The CreateEmployee component is responsible for rendering the Create Employee page.
- * It utilizes the HelmetProvider and Helmet components from react-helmet-async to manage
- * the page title. The main content of this page is rendered using the CreateEmployeeView component.
+ * Page component for creating a new employee.
+ *
+ * This component wraps the `CreateEmployeeView` inside a `HelmetProvider` to manage
+ * the document title dynamically using `Helmet`. The page includes a heading and
+ * a form for employee creation.
  *
  * @component
- * @returns {JSX.Element} The rendered CreateEmployee component.
+ * @returns {JSX.Element} The rendered `CreateEmployee` page component.
  */
 const CreateEmployee = () => {
   return (
@@ -16,7 +18,7 @@ const CreateEmployee = () => {
         <Helmet>
           <title>Home - Create Employee</title>
         </Helmet>
-        <h2 className="my-5">CreateEmployee</h2>
+        <h2 className="my-5">Create Employee</h2>
         <CreateEmployeeView />
       </main>
     </HelmetProvider>

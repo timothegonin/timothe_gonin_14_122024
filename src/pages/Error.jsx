@@ -6,14 +6,17 @@ import Button from 'react-bootstrap/Button'
 import Stack from 'react-bootstrap/Stack'
 
 /**
- * The Error component is responsible for rendering an error page that provides users
- * with options to select their destination or automatically redirects them to the home page.
- * It uses the HelmetProvider and Helmet components from react-helmet-async to manage
- * the page title. The countdown feature is implemented to redirect the user to the home page
- * after a certain duration.
+ * Displays an error page with navigation options and an automatic redirection countdown.
+ *
+ * This component provides users with links to navigate manually or waits for a countdown
+ * to automatically redirect them to the home page.
+ *
+ * - Uses `react-helmet-async` to dynamically update the page title with the countdown.
+ * - Implements a countdown timer using `useEffect` and `useState`.
+ * - Redirects the user to the home page (`/`) when the countdown reaches zero.
  *
  * @component
- * @returns {JSX.Element} The rendered Error component.
+ * @returns {JSX.Element} The rendered `Error` page component.
  */
 const Error = () => {
   const navigate = useNavigate()
@@ -23,7 +26,8 @@ const Error = () => {
     const interval = setInterval(() => {
       setCountdown((prevCountdown) => prevCountdown - 1)
     }, 1000)
-    return () => clearInterval(interval)
+
+    return () => clearInterval(interval) // Cleanup on unmount
   }, [])
 
   useEffect(() => {
@@ -44,18 +48,16 @@ const Error = () => {
           <LinkContainer to="/">
             <Button variant="outline-primary">Home</Button>
           </LinkContainer>
-
           <LinkContainer to="/employees">
             <Button variant="outline-primary">Employees list</Button>
           </LinkContainer>
         </div>
         <Stack gap={1} className="text-center">
           <p className="mb-0">
-            Or you will be automatically redirected to the home page in :
+            Or you will be automatically redirected to the home page in:
           </p>
           <p>
-            <span className="fs-5 fw-bold">{countdown} </span>
-            seconds.
+            <span className="fs-5 fw-bold">{countdown}</span> seconds.
           </p>
         </Stack>
       </main>

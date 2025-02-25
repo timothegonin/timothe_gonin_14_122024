@@ -1,7 +1,7 @@
 {
   "name": "timothe_gonin_14_122024",
   "private": true,
-  "version": "0.5.5",
+  "version": "0.5.7",
   "type": "module",
   "scripts": {
     "dev": "vite",
